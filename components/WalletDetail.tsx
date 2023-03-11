@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { FiX } from "react-icons/fi";
+import { FiX, FiToggleRight, FiToggleLeft, FiArchive } from "react-icons/fi";
 import styles from "../styles/WalletDetail.module.css";
 
 export default function WalletDetailModal() {
@@ -52,7 +52,7 @@ export default function WalletDetailModal() {
         <div className={styles.walletPopupBackdrop}>
           <section className={styles.walletDetailModal}>
             <div className={styles.topNav}>
-              <h4>Wallet Details</h4>
+              <h3>Wallet Details</h3>
               <button onClick={() => setShowWalletDetailPopup(false)}>
                 <FiX />
               </button>
@@ -63,7 +63,7 @@ export default function WalletDetailModal() {
                 <p className={styles.accountNotConnectedText}>Account not connected yet.</p>
 
                 <button disabled={!haveMetamask} className={styles.connectWalletButton} onClick={connectWallet}>
-                  Connect Wallet
+                  <FiToggleRight /> <p>Connect Wallet</p>
                 </button>
 
                 {!haveMetamask && (
@@ -103,7 +103,7 @@ export default function WalletDetailModal() {
                 </table>
 
                 <button className={styles.disconnectWalletButton} onClick={disconnectWallet}>
-                  Disconnect Wallet
+                  <FiToggleLeft /> <p>Disconnect Wallet</p>
                 </button>
               </Fragment>
             )}
@@ -113,7 +113,7 @@ export default function WalletDetailModal() {
 
       {!showWalletDetailPopup && (
         <button className={styles.showWalletDetailButton} onClick={() => setShowWalletDetailPopup(true)}>
-          Show Wallet Details
+          <FiArchive /> <p>Show Wallet Details</p>
         </button>
       )}
     </Fragment>

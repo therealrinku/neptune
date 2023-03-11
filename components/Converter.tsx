@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TfiExchangeVertical } from "react-icons/tfi";
+import { FiRefreshCw } from "react-icons/fi";
 import styles from "../styles/Converter.module.css";
 import dynamic from "next/dynamic";
 
@@ -53,6 +53,8 @@ export default function Converter() {
       {renderField(order[0])}
       {renderField(order[1])}
 
+      <p className={styles.currentRateInfoText}>Current Rate 3BUSD = 1 NPR</p>
+
       <button
         className={styles.reorderButton}
         onClick={() => {
@@ -60,7 +62,7 @@ export default function Converter() {
           setOrder(reversedOrder);
         }}
       >
-        <TfiExchangeVertical />
+        <FiRefreshCw />
       </button>
 
       <WalletDetailModal />

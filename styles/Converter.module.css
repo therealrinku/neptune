@@ -9,6 +9,7 @@
   align-items: center;
   align-items: stretch;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  outline: solid 2px #118B44;
 }
 
 .inputSection {
@@ -45,10 +46,18 @@
   border: none;
 }
 
-.inputSection button:hover {
+.reorderButton:hover{
   transform: scale(1.1);
 }
 
 .titleHeader {
   text-align: center;
+}
+
+.currentRateInfoText{
+  text-align: center;
+  font-size:15px;
+  color:#118B44;
+  font-weight:bold;
+  font-style: italic;
 }
