@@ -9,15 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@metamask/providers": "^10.2.1",
     "ethers": "^6.1.0",
-    "net": "^1.0.2",
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0",
-    "tls": "^0.0.1",
-    "web3": "^1.8.2",
-    "web3-react": "^5.0.5"
+    "react-icons": "^4.8.0"
   },
   "devDependencies": {
     "@types/node": "18.14.6",

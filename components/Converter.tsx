@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { TfiExchangeVertical } from "react-icons/tfi";
 import styles from "../styles/Converter.module.css";
+import dynamic from "next/dynamic";
+
+const WalletDetailModal = dynamic(() => import("./WalletDetail"), {
+  loading: () => <p style={{ fontSize: "12px", textAlign: "center" }}>Loading...</p>,
+  ssr: false,
+});
 
 export default function Converter() {
   const [npr, setNpr] = useState<number>(0);
@@ -24,7 +30,7 @@ export default function Converter() {
     switch (val) {
       case 1:
         return (
-          <section>
+          <section className={styles.inputSection}>
             <label>NPR</label>
             <input type="number" value={npr} onChange={convertFromNprToBusd} />
           </section>
@@ -32,7 +38,7 @@ export default function Converter() {
 
       case 2:
         return (
-          <section>
+          <section className={styles.inputSection}>
             <label>BUSD</label>
             <input type="number" value={busd} onChange={convertFromBusdToNpr} />
           </section>
@@ -40,14 +46,15 @@ export default function Converter() {
     }
   };
 
-  console.log(order);
-
   return (
     <div className={styles.converter}>
+      <h3 className={styles.titleHeader}>Currency Converter</h3>
+
       {renderField(order[0])}
       {renderField(order[1])}
 
       <button
+        className={styles.reorderButton}
         onClick={() => {
           const reversedOrder = order[0] == 1 ? [2, 1] : [1, 2];
           setOrder(reversedOrder);
@@ -55,6 +62,8 @@ export default function Converter() {
       >
         <TfiExchangeVertical />
       </button>
+
+      <WalletDetailModal />
     </div>
   );
 }

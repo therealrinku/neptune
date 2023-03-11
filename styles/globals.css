@@ -6,8 +6,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
+  font-family: "PT Sans";
 }
 
 a {
@@ -18,13 +17,13 @@ a {
 button,
 input {
   outline: none;
+  font-family: inherit;
 }
 
-button:hover,
+button:hover:not(:disabled),
 a:hover {
   cursor: pointer;
 }
-
 
 /* hide input type number element arrows */
 input::-webkit-outer-spin-button,
@@ -32,12 +31,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-input[type=number] {
-  -moz-appearance: textfield;
-}
 /* hide input type number element arrows */
-
 
 @media (prefers-color-scheme: dark) {
   html {
