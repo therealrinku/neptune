@@ -1,6 +1,6 @@
 .converter {
   background-color: white;
-  padding: 10px 35px;
+  padding: 15px 30px;
   border-radius: 5px;
   color: black;
   min-width: 350px;
@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   align-items: stretch;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
 }
 
 .inputSection {
@@ -24,9 +25,14 @@
 .inputSection input {
   background: inherit;
   color: black;
-  border: solid 1px rgba(0, 0, 0, 0.8);
-  padding: 10px 8px;
+  border: solid 1px rgba(0, 0, 0, 0.5);
+  padding: 12px 8px;
   border-radius: 5px;
+  font-size:17px;
+}
+
+.inputSection input:focus{
+  outline:solid 1px #118B44;
 }
 
 .reorderButton {

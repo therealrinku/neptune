@@ -32,13 +32,3 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 /* hide input type number element arrows */
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}

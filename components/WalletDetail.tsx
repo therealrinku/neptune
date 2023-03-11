@@ -63,7 +63,7 @@ export default function WalletDetailModal() {
                 <p className={styles.accountNotConnectedText}>Account not connected yet.</p>
 
                 <button disabled={!haveMetamask} className={styles.connectWalletButton} onClick={connectWallet}>
-                  Connect Account
+                  Connect Wallet
                 </button>
 
                 {!haveMetamask && (
@@ -103,7 +103,7 @@ export default function WalletDetailModal() {
                 </table>
 
                 <button className={styles.disconnectWalletButton} onClick={disconnectWallet}>
-                  Disconnect
+                  Disconnect Wallet
                 </button>
               </Fragment>
             )}
