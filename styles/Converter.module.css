@@ -1,0 +1,44 @@
+.converter {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: black;
+  min-width: 300px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  align-items:stretch;
+}
+
+.converter section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.converter section label {
+  margin-bottom: 5px;
+}
+
+.converter section input {
+  background: inherit;
+  color: black;
+  border: solid 1px rgba(0, 0, 0, 0.8);
+  padding: 7px 5px;
+  border-radius: 5px;
+}
+
+
+.converter button{
+  width:50px;
+  margin:auto;
+  padding:10px;
+  font-size:20px;
+  background-color:inherit;
+  color:black;
+  border:none;
+}
+
+.converter button:hover{
+  transform: scale(1.1);
+}
