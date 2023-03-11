@@ -9,8 +9,8 @@ const WalletDetailModal = dynamic(() => import("./WalletDetail"), {
 });
 
 export default function Converter() {
-  const [npr, setNpr] = useState<number>(0);
-  const [busd, setBusd] = useState<number>(0);
+  const [npr, setNpr] = useState<number | undefined>();
+  const [busd, setBusd] = useState<number | undefined>();
   const [order, setOrder] = useState<Array<number>>([1, 2]);
   const exchangeRate = 3;
 
@@ -26,8 +26,8 @@ export default function Converter() {
     setBusd(Number((numValue * exchangeRate).toFixed(2)));
   };
 
-  const renderField = (val: number) => {
-    switch (val) {
+  const renderField = (fieldNum: number) => {
+    switch (fieldNum) {
       case 1:
         return (
           <section className={styles.inputSection}>
@@ -58,7 +58,7 @@ export default function Converter() {
       <button
         className={styles.reorderButton}
         onClick={() => {
-          const reversedOrder = order[0] == 1 ? [2, 1] : [1, 2];
+          const reversedOrder = [...order].reverse();
           setOrder(reversedOrder);
         }}
       >
