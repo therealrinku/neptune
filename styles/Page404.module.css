@@ -1,0 +1,11 @@
+.page404{
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   gap:5px;
+}
+
+.page404 a{
+    text-decoration:underline;
+    color:blue;
+}

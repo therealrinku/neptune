@@ -25,10 +25,14 @@ a:hover {
   cursor: pointer;
 }
 
-/* hide input type number element arrows */
+/* hide input type 'number' element up/down arrows */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-/* hide input type number element arrows */
+
+input[type=number] {
+  appearance: textfield;
+}
+/* hide input type 'number' element up/down arrows */
