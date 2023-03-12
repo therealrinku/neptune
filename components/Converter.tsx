@@ -9,20 +9,20 @@ const WalletDetail = dynamic(() => import("./WalletDetail"), {
 });
 
 export default function Converter() {
-  const [npr, setNpr] = useState<number | null>(null);
+  const [nep, setNep] = useState<number | null>(null);
   const [busd, setBusd] = useState<number | null>(null);
   const [order, setOrder] = useState<Array<number>>([1, 2]);
   const exchangeRate = 3;
 
-  const convertFromBusdToNpr = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const convertFromBusdToNep = (event: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = Number(event.target.value);
     setBusd(numValue);
-    setNpr(Number((numValue / exchangeRate).toFixed(2)));
+    setNep(Number((numValue / exchangeRate).toFixed(2)));
   };
 
-  const convertFromNprToBusd = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const convertFromNepToBusd = (event: React.ChangeEvent<HTMLInputElement>) => {
     const numValue = Number(event.target.value);
-    setNpr(numValue);
+    setNep(numValue);
     setBusd(Number((numValue * exchangeRate).toFixed(2)));
   };
 
@@ -31,8 +31,8 @@ export default function Converter() {
       case 1:
         return (
           <section className={styles.inputSection}>
-            <label>NPR</label>
-            <input type="number" value={npr ?? ""} onChange={convertFromNprToBusd} />
+            <label>NEP</label>
+            <input type="number" value={nep ?? ""} onChange={convertFromNepToBusd} />
           </section>
         );
 
@@ -40,7 +40,7 @@ export default function Converter() {
         return (
           <section className={styles.inputSection}>
             <label>BUSD</label>
-            <input type="number" value={busd ?? ""} onChange={convertFromBusdToNpr} />
+            <input type="number" value={busd ?? ""} onChange={convertFromBusdToNep} />
           </section>
         );
     }
@@ -53,7 +53,7 @@ export default function Converter() {
       {renderField(order[0])}
       {renderField(order[1])}
 
-      <p className={styles.currentRateInfoText}>Current Rate: 3BUSD = 1 NPR</p>
+      <p className={styles.currentRateInfoText}>Current Rate: 1NEP = 3BUSD</p>
 
       <button
         className={styles.reorderButton}
