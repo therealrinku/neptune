@@ -3,12 +3,16 @@ import { ethers } from "ethers";
 import { FiX, FiToggleRight, FiToggleLeft, FiArchive } from "react-icons/fi";
 import styles from "../styles/WalletDetail.module.css";
 
+interface AccountInfoModel {
+  chainId: bigint | null;
+  address: string | undefined;
+  balance: string | undefined;
+}
+
 export default function WalletDetailModal() {
   const [haveMetamask, sethaveMetamask] = useState<boolean>(true);
   const [isConnected, setIsConnected] = useState<boolean>(false);
-  const [chainId, setChainId] = useState<bigint | undefined>();
-  const [accountAddress, setAccountAddress] = useState<string>("");
-  const [accountBalance, setAccountBalance] = useState<string | null>(null);
+  const [accountInfo, setAccountInfo] = useState<AccountInfoModel>({ chainId: null, address: "", balance: "" });
 
   const [showWalletDetailPopup, setShowWalletDetailPopup] = useState<boolean>(false);
 
@@ -22,25 +26,20 @@ export default function WalletDetailModal() {
   }, []);
 
   const connectWallet = async () => {
-    if (!ethereum) {
-      sethaveMetamask(false);
-      return;
-    }
+    if (!ethereum) return sethaveMetamask(false);
 
     try {
       const provider = new ethers.BrowserProvider(ethereum);
 
       let accounts: Array<string> | any = await ethereum.request({ method: "eth_requestAccounts" });
 
-      setAccountAddress(accounts[0]);
+      setAccountInfo({ ...accountInfo, address: accounts[0] });
       setIsConnected(true);
 
-      const balance = await provider.getBalance(accounts[0]);
-      const bal = ethers.formatEther(balance);
+      const balance = ethers.formatEther(await provider.getBalance(accounts[0]));
       const { chainId } = await provider.getNetwork();
 
-      setAccountBalance(bal);
-      setChainId(chainId);
+      setAccountInfo({ ...accountInfo, address: accounts[0], balance: balance, chainId: chainId });
       localStorage.setItem("walletConnected", "true");
     } catch (error) {
       setIsConnected(false);
@@ -56,9 +55,7 @@ export default function WalletDetailModal() {
   const onShowWalletDetailButtonClick = () => {
     setShowWalletDetailPopup(true);
 
-    if (localStorage.getItem("walletConnected") === "true" && !isConnected) {
-      connectWallet();
-    }
+    if (localStorage.getItem("walletConnected") === "true" && !isConnected) connectWallet();
   };
 
   return (
@@ -73,22 +70,6 @@ export default function WalletDetailModal() {
               </button>
             </div>
 
-            {!isConnected && (
-              <Fragment>
-                <p className={styles.accountNotConnectedText}>Account not connected yet.</p>
-
-                <button disabled={!haveMetamask} className={styles.connectWalletButton} onClick={connectWallet}>
-                  <FiToggleRight /> <p>Connect Wallet</p>
-                </button>
-
-                {!haveMetamask && (
-                  <p className={styles.metamaskNotFoundMessage}>
-                    Metamask extension not found. please install it first and try again.
-                  </p>
-                )}
-              </Fragment>
-            )}
-
             {isConnected && (
               <Fragment>
                 <table className={styles.accountDetailsTable}>
@@ -102,24 +83,42 @@ export default function WalletDetailModal() {
                   <tbody>
                     <tr>
                       <td>Contract Address</td>
-                      <td>{accountAddress}</td>
+                      <td>{accountInfo.address}</td>
                     </tr>
 
                     <tr>
                       <td>Chain ID</td>
-                      <td>{chainId?.toString()}</td>
+                      <td>{accountInfo.chainId?.toString() || "..."}</td>
                     </tr>
 
                     <tr>
                       <td>Balance</td>
-                      <td>{accountBalance}</td>
+                      <td>{accountInfo.balance || "..."}</td>
                     </tr>
                   </tbody>
                 </table>
 
                 <button className={styles.disconnectWalletButton} onClick={disconnectWallet}>
-                  <FiToggleLeft /> <p>Disconnect Wallet</p>
+                  <FiToggleLeft />
+                  <p>Disconnect Wallet</p>
                 </button>
+              </Fragment>
+            )}
+
+            {!isConnected && (
+              <Fragment>
+                <p className={styles.accountNotConnectedText}>Account not connected yet.</p>
+
+                <button disabled={!haveMetamask} className={styles.connectWalletButton} onClick={connectWallet}>
+                  <FiToggleRight />
+                  <p>Connect Wallet</p>
+                </button>
+
+                {!haveMetamask && (
+                  <p className={styles.metamaskNotFoundMessage}>
+                    Metamask extension not found. please install it first and try again.
+                  </p>
+                )}
               </Fragment>
             )}
           </section>
@@ -127,7 +126,8 @@ export default function WalletDetailModal() {
       )}
 
       <button className={styles.showWalletDetailButton} onClick={onShowWalletDetailButtonClick}>
-        <FiArchive /> <p>Show Wallet Details</p>
+        <FiArchive />
+        <p>Show Wallet Details</p>
       </button>
     </Fragment>
   );
