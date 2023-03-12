@@ -3,7 +3,7 @@ import { FiRefreshCw } from "react-icons/fi";
 import styles from "../styles/Converter.module.css";
 import dynamic from "next/dynamic";
 
-const WalletDetailModal = dynamic(() => import("./WalletDetail"), {
+const WalletDetail = dynamic(() => import("./WalletDetail"), {
   loading: () => <p style={{ fontSize: "12px", textAlign: "center" }}>Loading...</p>,
   ssr: false,
 });
@@ -53,7 +53,7 @@ export default function Converter() {
       {renderField(order[0])}
       {renderField(order[1])}
 
-      <p className={styles.currentRateInfoText}>Current Rate 3BUSD = 1 NPR</p>
+      <p className={styles.currentRateInfoText}>Current Rate: 3BUSD = 1 NPR</p>
 
       <button
         className={styles.reorderButton}
@@ -65,7 +65,7 @@ export default function Converter() {
         <FiRefreshCw />
       </button>
 
-      <WalletDetailModal />
+      <WalletDetail />
     </div>
   );
 }

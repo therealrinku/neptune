@@ -82,7 +82,7 @@ export default function WalletDetailModal() {
 
                   <tbody>
                     <tr>
-                      <td>Contract Address</td>
+                      <td>Address</td>
                       <td>{accountInfo.address}</td>
                     </tr>
 
