@@ -9,7 +9,7 @@ interface AccountInfoModel {
   balance: string | undefined;
 }
 
-export default function WalletDetailModal() {
+export default function WalletDetail() {
   const [haveMetamask, sethaveMetamask] = useState<boolean>(true);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [accountInfo, setAccountInfo] = useState<AccountInfoModel>({ chainId: null, address: "", balance: "" });

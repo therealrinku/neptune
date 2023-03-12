@@ -9,8 +9,8 @@ const WalletDetail = dynamic(() => import("./WalletDetail"), {
 });
 
 export default function Converter() {
-  const [npr, setNpr] = useState<number | undefined>();
-  const [busd, setBusd] = useState<number | undefined>();
+  const [npr, setNpr] = useState<number | null>(null);
+  const [busd, setBusd] = useState<number | null>(null);
   const [order, setOrder] = useState<Array<number>>([1, 2]);
   const exchangeRate = 3;
 
@@ -32,7 +32,7 @@ export default function Converter() {
         return (
           <section className={styles.inputSection}>
             <label>NPR</label>
-            <input type="number" value={npr} onChange={convertFromNprToBusd} />
+            <input type="number" value={npr ?? ""} onChange={convertFromNprToBusd} />
           </section>
         );
 
@@ -40,7 +40,7 @@ export default function Converter() {
         return (
           <section className={styles.inputSection}>
             <label>BUSD</label>
-            <input type="number" value={busd} onChange={convertFromBusdToNpr} />
+            <input type="number" value={busd ?? ""} onChange={convertFromBusdToNpr} />
           </section>
         );
     }
