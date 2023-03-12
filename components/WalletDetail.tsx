@@ -9,21 +9,24 @@ export default function WalletDetailModal() {
   const [chainId, setChainId] = useState<bigint | undefined>();
   const [accountAddress, setAccountAddress] = useState<string>("");
   const [accountBalance, setAccountBalance] = useState<string | null>(null);
+
   const [showWalletDetailPopup, setShowWalletDetailPopup] = useState<boolean>(false);
 
   const { ethereum } = window;
 
   useEffect(() => {
-    (async function checkMetamaskAvailability() {
-      if (!ethereum) {
-        return sethaveMetamask(false);
-      }
-      sethaveMetamask(true);
-    })();
+    ethereum &&
+      ethereum.on("accountsChanged", async () => {
+        connectWallet();
+      });
   }, []);
 
   const connectWallet = async () => {
-    if (!ethereum) return;
+    if (!ethereum) {
+      sethaveMetamask(false);
+      return;
+    }
+
     try {
       const provider = new ethers.BrowserProvider(ethereum);
 
@@ -38,13 +41,25 @@ export default function WalletDetailModal() {
 
       setAccountBalance(bal);
       setChainId(chainId);
+      localStorage.setItem("walletConnected", "true");
     } catch (error) {
       setIsConnected(false);
-      sethaveMetamask(false);
+      localStorage.setItem("walletConnected", "false");
     }
   };
 
-  const disconnectWallet = () => setIsConnected(false);
+  const disconnectWallet = () => {
+    setIsConnected(false);
+    localStorage.setItem("walletConnected", "false");
+  };
+
+  const onShowWalletDetailButtonClick = () => {
+    setShowWalletDetailPopup(true);
+
+    if (localStorage.getItem("walletConnected") === "true" && !isConnected) {
+      connectWallet();
+    }
+  };
 
   return (
     <Fragment>
@@ -111,11 +126,9 @@ export default function WalletDetailModal() {
         </div>
       )}
 
-      {!showWalletDetailPopup && (
-        <button className={styles.showWalletDetailButton} onClick={() => setShowWalletDetailPopup(true)}>
-          <FiArchive /> <p>Show Wallet Details</p>
-        </button>
-      )}
+      <button className={styles.showWalletDetailButton} onClick={onShowWalletDetailButtonClick}>
+        <FiArchive /> <p>Show Wallet Details</p>
+      </button>
     </Fragment>
   );
 }
